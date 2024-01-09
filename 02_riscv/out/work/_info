@@ -1,0 +1,49 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\Oleg\Desktop\chipdesignschool\synth_school_verif_tasks\season_2\lesson_2\tasks
+vriscv_imm_gen
+Z1 DXx6 sv_std 3 std 0 22 F[19LRNL:5;XmIFh[XOPn1
+!i10b 1
+!s100 5SXO`XcAATb`C:l>iQE3F3
+IdY;5HNz4IXXD?7UXT80P^0
+V6S;nfbXfzPS_a@T7a:]=J1
+!s105 riscv_imm_gen_sv_unit
+S1
+Z2 dC:\Users\Oleg\Desktop\chipdesignschool\synth_school_verif_tasks\season_2\lesson_2\tasks
+w1704803900
+802_riscv/riscv_imm_gen.sv
+F02_riscv/riscv_imm_gen.sv
+L0 1
+Z3 OV;L;10.1d;51
+r1
+!s85 0
+31
+Z4 !s108 1704816314.745000
+Z5 !s107 02_riscv/testbench.sv|02_riscv/riscv_imm_gen.sv|
+Z6 !s90 -sv|-work|work|02_riscv/riscv_imm_gen.sv|02_riscv/testbench.sv|
+!s101 -O0
+Z7 o-sv -work work -O0
+vtestbench
+R1
+!i10b 1
+!s100 chb`mcSVGNZ]fGzOKoFFM3
+IWEbECK]N^AineJVWmO?2C2
+Vk`gP>kB]MlA6TQPBnh4B^1
+!s105 testbench_sv_unit
+S1
+R2
+w1704816304
+802_riscv/testbench.sv
+F02_riscv/testbench.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!s101 -O0
+R7

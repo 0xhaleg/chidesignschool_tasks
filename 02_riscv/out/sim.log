@@ -1,0 +1,57 @@
+# Reading C:/altera/13.1/modelsim_ase/tcl/vsim/pref.tcl 
+# vsim -do questa.tcl -l 02_riscv/out/sim.log -gui -voptargs=+acc -wlf 02_riscv/out/sim.wlf work.testbench 
+# Loading sv_std.std
+# Loading work.testbench
+# Loading work.riscv_imm_gen
+# do questa.tcl 
+# ** Error: BAD u_imm
+#    Time: 35 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 45 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 55 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 65 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 75 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 85 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 95 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 105 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 115 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD u_imm
+#    Time: 125 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 135 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 145 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 155 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 165 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 175 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 185 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD s_imm
+#    Time: 195 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 205 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD u_imm
+#    Time: 215 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD u_imm
+#    Time: 225 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 235 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 245 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# ** Error: BAD s_imm
+#    Time: 255 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 105
+# ** Error: BAD u_imm
+#    Time: 265 ps  Scope: testbench File: 02_riscv/testbench.sv Line: 109
+# Break in Module testbench at 02_riscv/testbench.sv line 58
+# Simulation Breakpoint: Break in Module testbench at 02_riscv/testbench.sv line 58
+# MACRO ./questa.tcl PAUSED at line 1

@@ -1,0 +1,8 @@
+** Warning: (vlib-34) Library already exists at "02_riscv/out/work".
+Modifying modelsim.ini
+Model Technology ModelSim ALTERA vlog 10.1d Compiler 2012.11 Nov  2 2012
+-- Compiling module riscv_imm_gen
+-- Compiling module testbench
+
+Top level modules:
+	testbench
