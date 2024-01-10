@@ -23,10 +23,12 @@ module testbench;
         .j_imm   ( j_imm   )
     );
 
+    `ifdef __ICARUS__
     initial begin
         $dumpfile("dump.vcd");
         $dumpvars;
     end
+    `endif
 
     // TODO:
     // Определите период тактового сигнала
@@ -53,7 +55,7 @@ module testbench;
     // Не забудьте про ожидание сигнала сброса!
     initial begin
         wait(aresetn);
-        repeat(25) begin
+        repeat(8) begin
             @(posedge clk);
             instr <= $urandom_range(0, $pow(2, 32)-1);
         end
@@ -64,7 +66,11 @@ module testbench;
     end
 
     // Пользуйтесь этой структурой
+    `ifdef __ICARUS__
     typedef struct packed {
+    `else
+    typedef struct {
+    `endif
         logic [31:0] instr;
         logic [31:0] i_imm;
         logic [31:0] s_imm;
@@ -73,20 +79,24 @@ module testbench;
         logic [31:0] j_imm;
     } packet;
 
-    //mailbox#(packet) mon2chk = new();
-    event e1;
-    event e2;
-
+    `ifdef __ICARUS__
+        event e1;
+        event e2;
+    `else
+        mailbox#(packet) mon2chk = new();
+    `endif
     // TODO:
     // Сохраняйте сигналы каждый положительный
     // фронт тактового сигнала
     
-    /*----*/
-    packet pkt;
-    /*----*/
+    `ifdef __ICARUS__
+        packet pkt;
+    `endif
 
     initial begin
-        //packet pkt;
+        `ifndef __ICARUS__
+            packet pkt;
+        `endif
         wait(aresetn);
         forever begin
             @(posedge clk);
@@ -96,49 +106,58 @@ module testbench;
             pkt.b_imm = b_imm;
             pkt.u_imm = u_imm;
             pkt.j_imm = j_imm;
-            ->e1;
-            @(e2);
-            pkt.instr = instr;
-            //mon2chk.put(pkt);
+            `ifdef __ICARUS__
+                ->e1;
+                @(e2);
+                pkt.instr = instr;
+            `else
+                pkt.instr = instr;
+                mon2chk.put(pkt);
+            `endif
         end
     end
 
     // TODO:
     // Выполните проверку выходных сигналов.
     initial begin
-        //packet pkt_prev, pkt_cur;
+        `ifndef __ICARUS__
+            packet pkt_prev, pkt_cur;
+        `endif
         wait(aresetn);
-        //mon2chk.get(pkt_prev);
+        `ifndef __ICARUS__
+            mon2chk.get(pkt_prev);
+        `endif
         forever begin
-            //mon2chk.get(pkt_cur);
-
             // Пишите здесь.
-            /*
-            if      ( pkt_cur.i_imm != {{21{pkt_prev.instr[31]}}, pkt_prev.instr[30:25], pkt_prev.instr[24:21], pkt_prev.instr[   20]                             } )
+            `ifndef __ICARUS__
+                mon2chk.get(pkt_cur);
+                     if ( pkt_cur.i_imm != {{21{pkt_prev.instr[31]}}, pkt_prev.instr[30:25], pkt_prev.instr[24:21], pkt_prev.instr[   20]} )
                 $error("BAD i_imm");
-            else if ( pkt_cur.s_imm != {{21{pkt_prev.instr[31]}}, pkt_prev.instr[30:25], pkt_prev.instr[11: 8], pkt_prev.instr[    7]                             } )
+                else if ( pkt_cur.s_imm != {{21{pkt_prev.instr[31]}}, pkt_prev.instr[30:25], pkt_prev.instr[11: 8], pkt_prev.instr[    7]} )
                 $error("BAD s_imm");
-            else if ( pkt_cur.b_imm != {{20{pkt_prev.instr[31]}}, pkt_prev.instr[    7], pkt_prev.instr[30:25], pkt_prev.instr[11: 8], 1'b0                       } )
+                else if ( pkt_cur.b_imm != {{20{pkt_prev.instr[31]}}, pkt_prev.instr[    7], pkt_prev.instr[30:25], pkt_prev.instr[11: 8], 1'b0} )
                 $error("BAD b_imm");
-            else if ( pkt_cur.u_imm != {    pkt_prev.instr[31]  , pkt_prev.instr[30:20], pkt_prev.instr[19:12], 12'b0                                             } )
+                else if ( pkt_cur.u_imm != {    pkt_prev.instr[31]  , pkt_prev.instr[30:20], pkt_prev.instr[19:12], 12'b0} )
                 $error("BAD u_imm");
-            else if ( pkt_cur.j_imm != {{12{pkt_prev.instr[31]}}, pkt_prev.instr[19:12], pkt_prev.instr[   20], pkt_prev.instr[30:25], pkt_prev.instr[24:21], 1'b0} )
+                else if ( pkt_cur.j_imm != {{12{pkt_prev.instr[31]}}, pkt_prev.instr[19:12], pkt_prev.instr[   20], pkt_prev.instr[30:25], pkt_prev.instr[24:21], 1'b0} )
                 $error("BAD j_imm");
 
-            pkt_prev = pkt_cur;
-            */
-            @(e1);
-            if      ( i_imm != {{21{pkt.instr[31]}}, pkt.instr[30:25], pkt.instr[24:21], pkt.instr[   20]                             } )
-                $error("BAD i_imm");
-            else if ( s_imm != {{21{pkt.instr[31]}}, pkt.instr[30:25], pkt.instr[11: 8], pkt.instr[    7]                             } )
-                $error("BAD s_imm");
-            else if ( b_imm != {{20{pkt.instr[31]}}, pkt.instr[    7], pkt.instr[30:25], pkt.instr[11: 8], 1'b0                       } )
-                $error("BAD b_imm");
-            else if ( u_imm != {    pkt.instr[31]  , pkt.instr[30:20], pkt.instr[19:12], 12'b0                                             } )
-                $error("BAD u_imm");
-            else if ( j_imm != {{12{pkt.instr[31]}}, pkt.instr[19:12], pkt.instr[   20], pkt.instr[30:25], pkt.instr[24:21], 1'b0} )
-                $error("BAD j_imm");
-            ->e2;
+                pkt_prev = pkt_cur;
+            
+            `else
+                @(e1);
+                     if ( i_imm != {{21{pkt.instr[31]}}, pkt.instr[30:25], pkt.instr[24:21], pkt.instr[   20]} )
+                    $error("BAD i_imm");
+                else if ( s_imm != {{21{pkt.instr[31]}}, pkt.instr[30:25], pkt.instr[11: 8], pkt.instr[    7]} )
+                    $error("BAD s_imm");
+                else if ( b_imm != {{20{pkt.instr[31]}}, pkt.instr[    7], pkt.instr[30:25], pkt.instr[11: 8], 1'b0} )
+                    $error("BAD b_imm");
+                else if ( u_imm != {    pkt.instr[31]  , pkt.instr[30:20], pkt.instr[19:12], 12'b0} )
+                    $error("BAD u_imm");
+                else if ( j_imm != {{12{pkt.instr[31]}}, pkt.instr[19:12], pkt.instr[   20], pkt.instr[30:25], pkt.instr[24:21], 1'b0} )
+                    $error("BAD j_imm");
+                ->e2;
+            `endif
         end
     end
 
